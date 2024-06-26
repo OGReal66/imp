@@ -1,0 +1,221 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        // Read the integer n
+        int n = scanner.nextInt();
+        scanner.close();
+
+        // Print the squares of all non-negative integers less than n
+        for (int i = 0; i < n; i++) {
+            System.out.println(i * i);
+        }
+    }
+}
+
+
+
+
+
+
+import java.util.*;
+public class Main
+{
+    public boolean isValid(String s) {
+      Stack<Character> sa=new Stack<>();
+      for(int i=0;i<s.length();i++){
+          char ch=s.charAt(i);
+          if(ch=='(' || ch=='{' || ch=='['){
+              sa.push(ch);
+          }else{
+              if(sa.isEmpty()){
+                  return false;
+              }
+              if((sa.peek()=='('&& ch==')')|| (sa.peek()=='{' &&ch=='}')||(sa.peek()=='[' &&ch==']')){
+                  sa.pop();
+              }
+              else {
+                  return false;
+              }
+          }
+      } 
+      if(sa.isEmpty()) {
+          return true;
+      }else{
+          return false;
+      }
+    }
+
+	public static void main(String[] args) {
+	     Main solution = new Main(); 
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter a string with parentheses, braces, and brackets: ");
+        String input = scanner.nextLine();
+
+        System.out.println("Is the input valid? " + solution.isValid(input));
+	}
+ }
+
+
+
+
+2
+
+import java.util.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+		
+		Scanner sc=new Scanner(System.in);
+		int n=sc.nextInt();
+		List<Integer> score=new ArrayList<>();
+		for(int i=0;i<n;i++){
+		    score.add(sc.nextInt());
+		}
+		Collections.sort(score);
+		int a=score.get(n-1);
+		System.out.println(a);
+	}
+}
+
+
+
+
+
+
+
+
+
+import java.util.HashSet;
+import java.util.Set;
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int start = 0;
+        int end = 0;
+        int maxLength = 0;
+        Set<Character> set = new HashSet<>();
+
+        while (end < s.length()) {
+            if (!set.contains(s.charAt(end))) {
+                set.add(s.charAt(end));
+                end++;
+                maxLength = Math.max(maxLength, set.size());
+            } else {
+                set.remove(s.charAt(start));
+                start++;
+            }
+        }
+
+        return maxLength;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter a string: ");
+        String input = scanner.nextLine();
+
+        int length = solution.lengthOfLongestSubstring(input);
+        System.out.println("The length of the longest substring without repeating characters is: " + length);
+    }
+}
+
+
+
+
+
+
+import java.util.Scanner;
+
+public class HalfAdder {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter value for A (0 or 1): ");
+        int inputA = scanner.nextInt();
+        boolean A = inputA != 0;
+
+        System.out.print("Enter value for B (0 or 1): ");
+        int inputB = scanner.nextInt();
+        boolean B = inputB != 0;
+
+        boolean sum = xor(A, B);
+        boolean carry = and(A, B);
+
+        System.out.println("A: " + A);
+        System.out.println("B: " + B);
+        System.out.println("Sum: " + sum);
+        System.out.println("Carry: " + carry);
+
+        scanner.close();
+    }
+
+    public static boolean xor(boolean a, boolean b) {
+        return a ^ b;
+    }
+
+    public static boolean and(boolean a, boolean b) {
+        return a && b;
+    }
+}
+
+
+
+
+
+
+
+
+import java.util.*;
+
+public class Solution {
+    public List<String> restoreIpAddresses(String s) {
+        List<String> res = new ArrayList<>();
+        int len = s.length();
+
+        for (int aLen = 1; aLen <= 3; aLen++) {
+            for (int bLen = 1; bLen <= 3; bLen++) {
+                for (int cLen = 1; cLen <= 3; cLen++) {
+                    int dLen = len - aLen - bLen - cLen;
+
+                    if (dLen >= 1 && dLen <= 3) {
+                        int A = Integer.parseInt(s.substring(0, aLen));
+                        int B = Integer.parseInt(s.substring(aLen, aLen + bLen));
+                        int C = Integer.parseInt(s.substring(aLen + bLen, aLen + bLen + cLen));
+                        int D = Integer.parseInt(s.substring(aLen + bLen + cLen));
+
+                        if (A <= 255 && B <= 255 && C <= 255 && D <= 255) {
+                            StringBuilder ip = new StringBuilder();
+                            ip.append(A).append(".").append(B).append(".").append(C).append(".").append(D);
+
+                            if (ip.length() == len + 3) {
+                                res.add(ip.toString());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return res;
+    }
+
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        String input = "25525511135";
+        List<String> result = solution.restoreIpAddresses(input);
+
+        for (int i = 0; i < result.size(); i++){
+            System.out.println(result.get(i));
+        }
+    }
+}
